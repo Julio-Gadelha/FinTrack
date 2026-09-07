@@ -1,0 +1,30 @@
+package dio.fintrack.db;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Conexao {
+
+    private static final String URL = "jdbc:sqlite:fintrack.db";
+
+    public static Connection conectar() throws SQLException {
+        Connection conexao = DriverManager.getConnection(URL);
+        criarTabelaSeNaoExistir(conexao);
+        return conexao;
+    }
+
+    private static void criarTabelaSeNaoExistir(Connection conexao) throws SQLException {
+        String sql = "CREATE TABLE IF NOT EXISTS transacoes (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "descricao VARCHAR(100)," +
+                "valor DECIMAL(10,2)," +
+                "tipo VARCHAR(10)," +
+                "data DATE" +
+                ")";
+        try (Statement stmt = conexao.createStatement()) {
+            stmt.execute(sql);
+        }
+    }
+}
