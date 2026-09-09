@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Conexao {
+public class ConexaoBancoDados {
 
     private static final String URL = "jdbc:sqlite:fintrack.db";
 
-    public static Connection conectar() throws SQLException {
+    public static Connection conection() throws SQLException {
         Connection conexao = DriverManager.getConnection(URL);
         criarTabelaSeNaoExistir(conexao);
         return conexao;

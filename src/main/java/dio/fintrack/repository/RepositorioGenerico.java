@@ -3,23 +3,23 @@ package dio.fintrack.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepositoryGeneric<T> {
+public class RepositorioGenerico<T> {
 
     private final List<T> items = new ArrayList<>();
 
-    public void add(T item) {
+    public void adicionar(T item) {
         items.add(item);
     }
 
-    public void remove(T item) {
+    public void remover(T item) {
         items.remove(item);
     }
 
-    public List<T> listAll() {
+    public List<T> listarTodos() {
         return new ArrayList<>(items);
     }
 
-    public void addAll(List<? extends T> newItems) {
+    public void AdicionarTodos(List<? extends T> newItems) {
         items.addAll(newItems);
     }
 

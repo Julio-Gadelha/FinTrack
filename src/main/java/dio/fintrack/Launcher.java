@@ -1,21 +1,30 @@
 package dio.fintrack;
 
-import dio.fintrack.model.Transaction;
-import dio.fintrack.model.Type;
-import dio.fintrack.repository.RepositoryGeneric;
+
+
+import dio.fintrack.dao.TransacaoDAO;
+import dio.fintrack.model.Tipo;
+import dio.fintrack.model.Transacao;
 import javafx.application.Application;
 
+
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class Launcher {
     public static void main(String[] args) {
 
-        RepositoryGeneric<Transaction> repo = new RepositoryGeneric<>();
-        repo.add(new Transaction(1,"Salário", new BigDecimal("3000.00"), Type.INCOME, LocalDate.now()));
-        repo.add(new Transaction(2,"Mercado", new BigDecimal("450.00"), Type.EXPENSE, LocalDate.now()));
-        repo.listAll().forEach(System.out::println);
+        try {
+          TransacaoDAO dao = new TransacaoDAO();
+            dao.insert(new Transacao("Salário", new BigDecimal("3000.00"), Tipo.RECEITA, LocalDate.now()));
+            dao.insert(new Transacao("Mercado", new BigDecimal("450.00"), Tipo.DESPESA, LocalDate.now()));
 
+            dao.findAll().forEach(System.out::println);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         Application.launch(FinApp.class, args);
     }
