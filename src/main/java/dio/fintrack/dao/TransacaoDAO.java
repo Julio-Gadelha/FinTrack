@@ -13,7 +13,7 @@ import java.util.List;
 public class TransacaoDAO {
 
     public void insert(Transacao t) throws SQLException {
-        String sql = "INSERT INTO transactions (descricao, valor, tipo, data) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO transacoes (descricao, valor, tipo, data) VALUES (?, ?, ?, ?)";
         try (Connection connection = ConexaoBancoDados.conection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
@@ -27,16 +27,16 @@ public class TransacaoDAO {
 
     public List<Transacao> findAll() throws SQLException {
         List<Transacao> transactions = new ArrayList<>();
-        String sql = "SELECT * FROM transactions";
+        String sql = "SELECT * FROM transacoes";
 
         try (Connection connection = ConexaoBancoDados.conection();
              Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                Transacao t = new Transacao("Salário", new BigDecimal("3000.00"), Tipo.RECEITA, LocalDate.now());
+                Transacao t = new Transacao();
                 t.setId(rs.getInt("id"));
-                t.setDescricao(rs.getString("descrição"));
+                t.setDescricao(rs.getString("descricao"));
                 t.setValor(rs.getBigDecimal("valor"));
                 t.setTipo(Tipo.valueOf(rs.getString("tipo")));
                 t.setData(LocalDate.parse(rs.getString("data")));
@@ -47,7 +47,7 @@ public class TransacaoDAO {
     }
 
     public void update(Transacao t) throws SQLException {
-        String sql = "UPDATE transactions SET descricao = ?, valor = ?, tipo = ?, data = ? WHERE id = ?";
+        String sql = "UPDATE transacoes SET descricao = ?, valor = ?, tipo = ?, data = ? WHERE id = ?";
         try (Connection connection = ConexaoBancoDados.conection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
@@ -61,12 +61,24 @@ public class TransacaoDAO {
     }
 
     public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM transactions WHERE id = ?";
+        String sql = "DELETE FROM transacoes WHERE id = ?";
         try (Connection connection = ConexaoBancoDados.conection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             ps.executeUpdate();
         }
+    }
+
+    public BigDecimal getSaldo() throws SQLException {
+        BigDecimal saldo = BigDecimal.ZERO;
+        for (Transacao t : findAll()) {
+            if (t.getTipo() == Tipo.RECEITA) {
+                saldo = saldo.add(t.getValor());
+            } else {
+                saldo = saldo.subtract(t.getValor());
+            }
+        }
+        return saldo;
     }
 }

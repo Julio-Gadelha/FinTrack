@@ -7,18 +7,16 @@ public class Transacao {
     private Integer id;
     private String descricao;
     private BigDecimal valor;
-    private Tipo Tipo;
+    private Tipo tipo;
     private LocalDate data;
 
-    public Transacao(String salário, BigDecimal bigDecimal, Tipo receita, LocalDate now) {
-
+    public Transacao() {
     }
 
-    public Transacao(Integer id, String descricao, BigDecimal valor, Tipo tipo, LocalDate data) {
-        this.id = id;
+    public Transacao(String descricao, BigDecimal valor, Tipo tipo, LocalDate data) {
         this.descricao = descricao;
         this.valor = valor;
-        Tipo = tipo;
+        this.tipo = tipo;
         this.data = data;
     }
 
@@ -47,11 +45,11 @@ public class Transacao {
     }
 
     public Tipo getTipo() {
-        return Tipo;
+        return tipo;
     }
 
     public void setTipo(Tipo tipo) {
-        Tipo = tipo;
+        this.tipo = tipo;
     }
 
     public LocalDate getData() {
@@ -60,5 +58,16 @@ public class Transacao {
 
     public void setData(LocalDate data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "Transacao{" +
+                "id=" + id +
+                ", descricao='" + descricao + '\'' +
+                ", valor=" + valor +
+                ", tipo=" + tipo +
+                ", data=" + data +
+                '}';
     }
 }
