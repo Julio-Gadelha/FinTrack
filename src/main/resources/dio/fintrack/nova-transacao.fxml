@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="dio.fintrack.controller.NovaTransacaoController"
+          hgap="10" vgap="10">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Descrição:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <TextField fx:id="campoDescricao" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+    <Label text="Valor:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <TextField fx:id="campoValor" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+    <Label text="Tipo:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <ComboBox fx:id="campoTipo" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <Label text="Data:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <DatePicker fx:id="campoData" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <HBox spacing="10" GridPane.rowIndex="4" GridPane.columnIndex="1">
+        <Button text="Salvar" onAction="#salvar"/>
+        <Button text="Cancelar" onAction="#cancelar"/>
+    </HBox>
+
+</GridPane>

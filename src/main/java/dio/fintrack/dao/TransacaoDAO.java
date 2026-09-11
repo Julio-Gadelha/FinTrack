@@ -69,16 +69,28 @@ public class TransacaoDAO {
             ps.executeUpdate();
         }
     }
-
-    public BigDecimal getSaldo() throws SQLException {
-        BigDecimal saldo = BigDecimal.ZERO;
+    public BigDecimal getTotalReceitas() throws SQLException {
+        BigDecimal total = BigDecimal.ZERO;
         for (Transacao t : findAll()) {
             if (t.getTipo() == Tipo.RECEITA) {
-                saldo = saldo.add(t.getValor());
-            } else {
-                saldo = saldo.subtract(t.getValor());
+                total = total.add(t.getValor());
             }
         }
-        return saldo;
+        return total;
     }
+
+    public BigDecimal getTotalDespesas() throws SQLException {
+        BigDecimal total = BigDecimal.ZERO;
+        for (Transacao t : findAll()) {
+            if (t.getTipo() == Tipo.DESPESA) {
+                total = total.add(t.getValor());
+            }
+        }
+        return total;
+    }
+
+    public BigDecimal getSaldo() throws SQLException {
+        return getTotalReceitas().subtract(getTotalDespesas());
+    }
+
 }

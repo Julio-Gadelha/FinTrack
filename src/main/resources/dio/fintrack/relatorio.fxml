@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="dio.fintrack.controller.RelatorioController"
+      spacing="15">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Relatório Financeiro" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <Label fx:id="labelReceitas" text="Total de Receitas: R$ 0,00" style="-fx-font-size: 15px;"/>
+    <Label fx:id="labelDespesas" text="Total de Despesas: R$ 0,00" style="-fx-font-size: 15px;"/>
+    <Label fx:id="labelSaldoFinal" text="Saldo Final: R$ 0,00" style="-fx-font-size: 17px; -fx-font-weight: bold;"/>
+
+    <Button text="Fechar" onAction="#fechar"/>
+
+</VBox>
