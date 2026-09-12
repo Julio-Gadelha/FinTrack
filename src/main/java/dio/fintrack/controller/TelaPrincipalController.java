@@ -67,9 +67,12 @@ public class TelaPrincipalController {
                     getClass().getResource("/dio/fintrack/nova-transacao.fxml"));
             javafx.scene.Parent root = loader.load();
 
+            javafx.scene.Scene scene = new javafx.scene.Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/dio/fintrack/style.css").toExternalForm());
+
             Stage stage = new Stage();
             stage.setTitle("Nova Transação");
-            stage.setScene(new javafx.scene.Scene(root));
+            stage.setScene(scene);
             stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
             stage.showAndWait();
 
@@ -85,9 +88,12 @@ public class TelaPrincipalController {
                     getClass().getResource("/dio/fintrack/relatorio.fxml"));
             javafx.scene.Parent root = loader.load();
 
+            javafx.scene.Scene scene = new javafx.scene.Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/dio/fintrack/style.css").toExternalForm());
+
             Stage stage = new Stage();
             stage.setTitle("Relatório");
-            stage.setScene(new javafx.scene.Scene(root));
+            stage.setScene(scene);
             stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
             stage.showAndWait();
         } catch (Exception e) {
