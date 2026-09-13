@@ -2,6 +2,8 @@ module dio.fintrack {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires org.testng;
+    requires org.junit.jupiter.api;
 
     opens dio.fintrack to javafx.fxml;
     opens dio.fintrack.controller to javafx.fxml;

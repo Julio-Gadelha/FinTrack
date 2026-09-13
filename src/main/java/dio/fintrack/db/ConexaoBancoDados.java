@@ -10,7 +10,11 @@ public class ConexaoBancoDados {
     private static final String URL = "jdbc:sqlite:fintrack.db";
 
     public static Connection conection() throws SQLException {
-        Connection conexao = DriverManager.getConnection(URL);
+        return conection(URL);
+    }
+
+    public static Connection conection(String url) throws SQLException {
+        Connection conexao = DriverManager.getConnection(url);
         criarTabelaSeNaoExistir(conexao);
         return conexao;
     }

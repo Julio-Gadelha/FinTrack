@@ -52,7 +52,7 @@ public class NovaTransacaoController {
         try {
             valor = new BigDecimal(valorTexto.replace(",", "."));
         } catch (NumberFormatException e) {
-            mostrarErro("Valor inválido. Use apenas números (ex: 150.00).");
+            mostrarErro("Valor inválido. Use apenas números.");
             return;
         }
 

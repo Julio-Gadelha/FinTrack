@@ -12,9 +12,23 @@ import java.util.List;
 
 public class TransacaoDAO {
 
+    private final String url;
+
+    public TransacaoDAO() {
+        this.url = null;
+    }
+
+    public TransacaoDAO(String url) {
+        this.url = url;
+    }
+
+    private Connection conectar() throws SQLException {
+        return (url == null) ? ConexaoBancoDados.conection() : ConexaoBancoDados.conection(url);
+    }
+
     public void insert(Transacao t) throws SQLException {
         String sql = "INSERT INTO transacoes (descricao, valor, tipo, data) VALUES (?, ?, ?, ?)";
-        try (Connection connection = ConexaoBancoDados.conection();
+        try (Connection connection = conectar();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ps.setString(1, t.getDescricao());
@@ -29,7 +43,7 @@ public class TransacaoDAO {
         List<Transacao> transactions = new ArrayList<>();
         String sql = "SELECT * FROM transacoes";
 
-        try (Connection connection = ConexaoBancoDados.conection();
+        try (Connection connection = conectar();
              Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -48,7 +62,7 @@ public class TransacaoDAO {
 
     public void update(Transacao t) throws SQLException {
         String sql = "UPDATE transacoes SET descricao = ?, valor = ?, tipo = ?, data = ? WHERE id = ?";
-        try (Connection connection = ConexaoBancoDados.conection();
+        try (Connection connection = conectar();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ps.setString(1, t.getDescricao());
@@ -62,13 +76,14 @@ public class TransacaoDAO {
 
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM transacoes WHERE id = ?";
-        try (Connection connection = ConexaoBancoDados.conection();
+        try (Connection connection = conectar();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             ps.executeUpdate();
         }
     }
+
     public BigDecimal getTotalReceitas() throws SQLException {
         BigDecimal total = BigDecimal.ZERO;
         for (Transacao t : findAll()) {
@@ -92,5 +107,4 @@ public class TransacaoDAO {
     public BigDecimal getSaldo() throws SQLException {
         return getTotalReceitas().subtract(getTotalDespesas());
     }
-
 }
