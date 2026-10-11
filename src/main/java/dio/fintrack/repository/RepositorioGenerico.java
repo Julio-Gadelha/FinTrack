@@ -19,8 +19,19 @@ public class RepositorioGenerico<T> {
         return new ArrayList<>(items);
     }
 
-    public void AdicionarTodos(List<? extends T> newItems) {
+
+    public void adicionarTodos(List<? extends T> newItems) {
         items.addAll(newItems);
+    }
+
+
+    public void copiarPara(List<? super T> destino) {
+        destino.addAll(items);
+    }
+
+
+    public static int contar(List<?> lista) {
+        return lista.size();
     }
 
     public int total() {

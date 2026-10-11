@@ -3,6 +3,7 @@ package dio.fintrack.repository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,13 +44,34 @@ class RepositoryGenericTest {
 
     @Test
     void deveAdicionarVariosItensDeUmaVez() {
-        repositorio.AdicionarTodos(List.of("A", "B", "C"));
+        repositorio.adicionarTodos(List.of("A", "B", "C"));
         assertEquals(3, repositorio.total());
     }
 
     @Test
-    void listaDevecomecarVazia() {
+    void listaDeveComecarVazia() {
         assertEquals(0, repositorio.total());
         assertTrue(repositorio.listarTodos().isEmpty());
     }
+
+
+    @Test
+    void deveCopiarItensParaListaDeSuperTipo() {
+        repositorio.adicionar("A");
+        repositorio.adicionar("B");
+
+        List<Object> destino = new ArrayList<>();
+        repositorio.copiarPara(destino);
+
+        assertEquals(2, destino.size());
+        assertTrue(destino.contains("A"));
+    }
+
+
+    @Test
+    void deveContarElementosDeListaDeQualquerTipo() {
+        assertEquals(3, RepositorioGenerico.contar(List.of(1, 2, 3)));
+        assertEquals(2, RepositorioGenerico.contar(List.of("x", "y")));
+    }
 }
+
